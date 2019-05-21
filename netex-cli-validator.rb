@@ -8,10 +8,13 @@ def validate(document_path, schema_path, root_element)
   schema.validate(document_path)
 end
 
-target = File.expand_path(ARGV.first)
+ARGV.each do |file|
+  puts file
+  target = File.expand_path(file)
 
-Dir.chdir 'NeTEx/xsd' do
-  validate(target, 'NeTEx_publication.xsd', 'PublicationDelivery').each do |error|
-    puts error.message
+  Dir.chdir 'NeTEx/xsd' do
+    validate(target, 'NeTEx_publication.xsd', 'PublicationDelivery').each do |error|
+      puts error.message
+    end
   end
 end
